@@ -1,0 +1,3 @@
+<?php
+    redirectWhenGuest('login.php');
+?>
