@@ -8,10 +8,11 @@ function addNewRow(){
     let r = Math.random().toString(36).substring(7);
     let trx_row = `
     <div class="row" id="row-${r}">
+        <input type="hidden" class="harga-hidden" name="details[${r}][harga]">
         <div class="col-lg-6">
             <div class="form-group">
                 <label for="layanan_id">Konsumen</label>
-                <select class="form-control" name="details[${r}][layanan_id]" id="layanan_id">
+                <select class="form-control service-form" name="details[${r}][layanan_id]" id="layanan_id" onchange="selectService('${r}',this.value)">
                     <option value="">--PILIH Layanan--</option>
                     ${layanan_field_html}
                 </select>
@@ -20,7 +21,7 @@ function addNewRow(){
         <div class="col-lg-3">
             <div class="form-group">
                 <label for="jumlah">Jumlah</label>
-                <input type="number" required class="form-control" name="details[${r}][jumlah]" id="jumlah">
+                <input type="number" required class="form-control qty-form" name="details[${r}][jumlah]" id="jumlah">
             </div>
         </div>
         <div class="col-lg-1" style="margin-top: 40px;">
@@ -36,4 +37,23 @@ function addNewRow(){
 
 function deleteRow(selector){
     $(selector).remove();
+}
+
+
+function selectService(rowid,value){
+    let rowSelector = '#row-'+rowid;
+    $(rowSelector).find('.satuan').text("")
+    $(rowSelector).find('.qty-form').val("");
+    $(rowSelector).find('.harga-hidden').val("");
+    if(value != ""){
+        fetch(`ajax_layanan.php?id=${value}`)
+        .then(res => res.json())
+        .then((res) => {
+            $(rowSelector).find('.satuan').text(`Rp. ${res.harga}/${res.satuan}`)
+            $(rowSelector).find('.qty-form').val(1);
+            $(rowSelector).find('.harga-hidden').val(res.harga);
+        })
+        .catch(console.error)
+    }
+
 }

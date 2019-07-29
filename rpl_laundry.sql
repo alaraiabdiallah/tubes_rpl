@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2019 at 01:45 PM
+-- Generation Time: Jul 29, 2019 at 12:55 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -34,6 +34,13 @@ CREATE TABLE `detail_transaksi` (
   `layanan_id` int(11) DEFAULT NULL,
   `jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`id`, `kode_transaksi`, `layanan_id`, `jumlah`) VALUES
+(1, 'TRX-057c520833', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -72,7 +79,8 @@ CREATE TABLE `layanan` (
 --
 
 INSERT INTO `layanan` (`id`, `nama`, `harga`, `satuan`) VALUES
-(1, 'Cuci Express', 7000, 'KG');
+(1, 'Cuci Reguler', 5500, 'KG'),
+(2, 'Cuci Ekspres', 7000, 'KG');
 
 -- --------------------------------------------------------
 
@@ -105,8 +113,16 @@ CREATE TABLE `transaksi` (
   `pegawai_id` int(11) DEFAULT NULL,
   `tanggal_transaksi` timestamp NOT NULL DEFAULT current_timestamp(),
   `tanggal_ambil` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`kode_transaksi`, `konsumen_id`, `pegawai_id`, `tanggal_transaksi`, `tanggal_ambil`, `status`, `total`) VALUES
+('TRX-057c520833', 2, 2, '2019-07-28 17:00:00', '2019-07-30 17:00:00', 1, 5500);
 
 -- --------------------------------------------------------
 
@@ -181,7 +197,7 @@ ALTER TABLE `user_login`
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `konsumen`
@@ -193,7 +209,7 @@ ALTER TABLE `konsumen`
 -- AUTO_INCREMENT for table `layanan`
 --
 ALTER TABLE `layanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pegawai`

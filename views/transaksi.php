@@ -19,7 +19,7 @@ require_once "partials/navbar.php";
                         <th>Transaksi</th>
                         <th>Tgl Transaksi</th>
                         <th>Tgl Ambil</th>
-                        <th>Tgl Status</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -27,13 +27,12 @@ require_once "partials/navbar.php";
                 <?php $i = 1; foreach($transaksi as $r): ?>
                     <tr>
                         <td scope="row"><?php echo $i++; ?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo $r->kode_transaksi ?></td>
+                        <td><?php echo formatDate($r->tanggal_transaksi) ?></td>
+                        <td><?php echo formatDate($r->tanggal_ambil) ?></td>
+                        <td><?php echo statusTrasaction($r->status) ?></td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="?id=<?php echo $r->id ?>&action=edit" role="button"><i class="fa fa-edit"></i> Edit</a>
-                            <a class="btn btn-danger btn-sm" href="?id=<?php echo $r->id ?>&action=delete" role="button" onclick="return confirm('Yakin akan menghapus data ini?')"><i class="fa fa-trash"></i> Delete</a>
+                            <a class="btn btn-primary btn-sm" href="?id=<?php echo $r->kode_transaksi ?>&action=edit" role="button"><i class="fa fa-edit"></i> Edit</a>
                         </td>
                     </tr>
                 <?php endforeach ?>

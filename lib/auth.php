@@ -6,7 +6,8 @@ function setUser($user){
     $_SESSION["user"] = [
         "id" => $user->id,
         "nama" => $user->nama,
-        "username" => $user->username
+        "username" => $user->username,
+        "pegawai_id" => $user->pegawai_id
     ];
 }
 
